@@ -1,0 +1,144 @@
+Lista 1 PUM - Olivia Kozubal
+Zadanie 1
+
+fun foo(num: Int){
+    for (i in 1..num){
+        var w = ""
+    	if (i % 3 == 0){
+            w = w + "trzy"
+        }
+        if (i % 5 == 0){
+            w = w + "piec"
+        }
+        if (i % 7 == 0){
+            w = w + "siedem"
+        }
+        if (i % 11 == 0){
+            w = w + "jedenascie"
+        }
+        if (i % 13 == 0){
+            w = w + "trzynascie"
+        }
+        if (w != ""){
+        	println(w)
+    	}
+        else{
+        	println(i)
+    	}
+    }
+}
+
+fun main(){
+	val num: Int = 50
+	foo(num)
+}
+
+
+
+
+
+
+Zadanie 2
+
+fun palindrom(w: String){
+    if (w == w.reversed()){
+        println("true")
+    }
+    else{
+    	println("false")
+    }
+}
+fun main() {
+    var word = "abba"
+    word = word.trim()
+    palindrom(word)
+}
+
+
+
+
+
+
+Zadanie 3
+
+fun tworz(h: Int){
+    for (i in 0..h){
+        var l: Int = 1
+        print(" ".repeat((h - i)))
+        
+        for (j in 0..i){
+            print(l)
+            print(" ")
+            l = l * (i - j) / (j + 1)
+        }
+        println()
+    }
+}
+fun main() {
+	val h: Int = 6
+	tworz(h)
+}
+
+
+
+
+
+
+
+Zadanie 4
+
+fun isPerfect(n: Int){
+    if (n == 1)
+    	println("deficient")
+    else{
+        var s: Int = 0
+        
+    	for (i in 1..n/2)
+        {
+        	if (n % i == 0)
+            	s += i
+        }
+        
+        if(s < n)
+        	println("deficient")
+        else if(s == n)
+    		println("perfect")
+        else
+        	println("abundant")
+    }
+}
+
+fun main() {
+    val number: Int = 28
+    isPerfect(number)
+}
+
+
+
+
+
+
+
+Zadanie 5
+
+fun checkArmstrong(a: Int){
+    var b: Int = a
+    var s: Double = 0.0
+    val k: Int = a.toString().length
+    var c: Int = b % 10
+    while (b > 0)
+    {
+        s += Math.pow(c.toDouble(), k.toDouble())
+        b /= 10
+        c = b % 10
+    }
+   if (a == s.toInt())
+   		println("True")
+   else 
+    	println("False")
+}
+
+fun main() {
+    val number: Int = 153
+    checkArmstrong(number)
+}
