@@ -1,0 +1,112 @@
+Lista 2 - PUM Olivia Kozubal
+Zadanie 1
+
+fun main() {
+    val r = {s: String, i: Int -> s.repeat(i)}
+    println(r("k", 4))
+}
+
+
+
+Zadanie 2
+
+val <T> List<T>.tail: List<T>
+    get() {return if (this.isNotEmpty()) this.drop(1) else emptyList()}
+val <T> List<T>.head: T
+    get() {return this.first()}
+    
+fun main() {
+    val lista = listOf("a", "b", "c", "d", "e")
+    println(lista.tail)
+    println(lista.head)
+}
+
+
+
+Zadanie 3
+
+fun <A> isSorted(lst: List<A>, order: (A, A) -> Boolean): Boolean{
+    for (i in 0 until lst.size - 1)
+    	if (!order(lst[i], lst[i + 1]))
+        	return false
+    return true
+}
+
+fun main(){
+    println(isSorted(listOf(1, 2, 3, 4, 5), {i: Int, j: Int -> i < j}))
+    println(isSorted(listOf(1, 1, 1, 1), {i: Int, j: Int -> i==j}))
+    println(isSorted(listOf("ahyyhh", "bkjn", "cnn", "duu"), {i: String, j: String -> i.first() < j.first()}))
+    println(isSorted(listOf("ahyyhh", "bkjn", "cnn", "duu"), {i: String, j: String -> i.first() > j.first()}))
+}
+
+
+
+Zadanie 4
+fun <A> tailToHead(lst: List<A>): List<A> {
+    if (lst.isEmpty()) throw IllegalStateException("Empty list")
+    if (lst.size == 1) return lst
+    
+    val ost = lst.last()
+    val r = lst.dropLast(1)
+    
+    return listOf(ost) + r
+}
+
+fun main() {
+    println(tailToHead(listOf(1, 2, 3)))
+    println(tailToHead(listOf("a", "b", "c")))
+}
+
+
+
+
+
+Zadanie 5
+fun <A> setHead(lst: List<A>, item: A): List<A> {
+    if (lst.isEmpty()) throw IllegalStateException("Empty list")
+    
+    return listOf(item) + lst.drop(1)
+}
+
+fun main() {
+    println(setHead(listOf(1, 2, 3), 5)) 
+    println(setHead(listOf("a", "b", "c"), "e"))
+}
+
+
+
+
+
+
+Zadanie 6
+fun check(s: Int, lst: List<Int>): Int {
+    if (lst.size <= s) return -1
+
+    for (i in s until lst.size) {
+        val preambula = lst.subList(i - s, i)
+        val spr = lst[i]
+
+        if (!sumaIstnieje(preambula, spr)) {
+            return spr
+        }
+    }
+    return -1
+}
+
+fun sumaIstnieje(preambula: List<Int>, spr: Int): Boolean {
+    val roznice = mutableSetOf<Int>()
+    
+    for (i in preambula) {
+        if ((spr - i) in roznice) {
+            return true
+        }
+        roznice.add(i)
+    }
+    return false
+}
+
+fun main() {
+    println(check(2, listOf(1, 2, 3, 4, 5, 6)))
+    println(check(5, listOf(35, 25, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576)))
+    println(check(3, listOf(1, 2, 3, 5, 7, 8)))
+}
