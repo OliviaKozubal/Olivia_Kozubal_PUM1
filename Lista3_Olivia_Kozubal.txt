@@ -1,0 +1,244 @@
+PUM1 - Olivia Kozubal
+Zadanie 1
+
+fun findDuplicates(n: List<Int>): List<Int> {
+    val first = mutableSetOf<Int>()
+    val duplicates = mutableSetOf<Int>()
+
+    for (i in n) {
+        if (!first.add(i)) {
+            duplicates.add(i)
+        }
+    }
+    return duplicates.sorted()
+}
+
+fun main() {
+    val lst = listOf(0, 1, 1, 1, 4, 4, 4, 9, 3, 3, 3, 3, 3, 3)
+	println(findDuplicates(lst))
+}
+
+
+
+
+Zadanie 2
+
+
+fun addToBoolean()
+{
+    val map = mutableMapOf<Int, Boolean>()
+    for (i in 1..20)
+    	if (i % 2 > 0)
+        	map.put(i, false)
+        else
+    		map.put(i, true)
+    println(map)
+}
+fun main() {
+    addToBoolean()
+}
+
+
+
+
+
+Zadanie 3
+
+fun suma(a: List<Int>): Int
+{
+	val positiveNumbers = a.filter { it > 0}
+    val sum: Int = positiveNumbers.reduce { acc, next -> acc + next }
+    return sum
+}
+
+fun main() {
+    print(suma(listOf( 1, -4, 12, 0, -3, 29, -150)))
+}
+
+
+
+
+Zadanie 4
+
+fun countElements(lst: List<String>): Map<String, Int>
+{
+    return lst.groupingBy{ it }.eachCount()
+}
+
+fun main() {
+    println(countElements(listOf(listOf("a", "b", "c"), listOf("c", "d", "f"), listOf("d", "f", "g")).flatten()))
+}
+
+
+
+
+Zadanie 5
+
+fun evenPositiveSquare(lst: List<Int>)
+{
+	println(lst.filterIndexed{ index, it -> index % 2 != 0 }.filter{ it > 0 }.map{ it*it })
+}
+
+fun main() {
+    evenPositiveSquare(listOf(1, 2, 3, 5, -6, -1, -1, 2, 3))
+}
+
+
+Zadanie 6
+
+fun <T> perm(lst: List<T>): List<List<T>> {
+    if (lst.isEmpty()) return listOf(emptyList())
+    return lst.flatMap { n -> perm(lst - n).map { relst -> listOf(n) + relst } }
+}
+
+fun main() {
+    println(perm(listOf(1, 2, 3)))
+}
+
+Zadanie 7
+
+fun srt(lst: List<String>): List<Pair<Char, List<String>>> {
+    return lst
+        .filter { it.length % 2 == 0 }
+        .groupBy { it[0] }
+        .map { (key, value) -> key to value }
+        .sortedBy { it.first }
+}
+
+fun main() {
+    println(srt(listOf(
+        "cherry", 
+        "blueberry", 
+        "citrus", 
+        "apple", 
+        "apricot", 
+        "banana", 
+        "coconut")
+    ))
+}
+
+Zadanie 8
+
+fun convert(word: String): String {
+    val system = mapOf(
+        'A' to "2", 'B' to "22", 'C' to "222",
+        'D' to "3", 'E' to "33", 'F' to "333",
+        'G' to "4", 'H' to "44", 'I' to "444",
+        'J' to "5", 'K' to "55", 'L' to "555",
+        'M' to "6", 'N' to "66", 'O' to "666",
+        'P' to "7", 'Q' to "77", 'R' to "777", 'S' to "7777",
+        'T' to "8", 'U' to "88", 'V' to "888",
+        'W' to "9", 'X' to "99", 'Y' to "999", 'Z' to "9999"
+    )
+
+    return word.uppercase()
+        .map { system[it] ?: "" }
+        .joinToString("")
+}
+
+fun main() {
+    val word = "franek"
+	println(convert(word))
+}
+
+Zadanie 9
+
+data class StudentScore(val name: String, val subject: String, val score: Int)
+
+fun analyzeResults(students: List<StudentScore>): Triple<Map<String, List<StudentScore>>, List<StudentScore>, List<String>> {
+    val passScore = 51
+
+    val passedBySubject = students
+        .filter { it.score >= passScore }
+        .groupBy { it.subject } // grupowanie po nazwie przedmiotu, ułatwia nam to później np. otrzymanie przedmiotów które zdali wszyscy
+
+    val failedStudents = students.filter { it.score < passScore }
+
+    val subjectsAllPassed = passedBySubject
+        .filter { it.value.size == students.filter { student -> student.subject == it.key }.size }
+        .keys
+        .toList()
+
+    return Triple(passedBySubject, failedStudents, subjectsAllPassed)
+}
+
+fun main() {
+	val students = listOf(
+    	StudentScore("Alice", "Math", 78),
+    	StudentScore("Bob", "Math", 45),
+        StudentScore("Charlie", "Physics", 92),
+        StudentScore("Dave", "Physics", 55),
+        StudentScore("Eve", "Physics", 40),
+        StudentScore("Frank", "CS", 60),
+        StudentScore("Grace", "CS", 80),
+    )
+
+    val (passedBySubject, failed, subjectsAllPassed) = analyzeResults(students)
+
+    println("Zdani studenci według przedmiotów: $passedBySubject")
+    println("Niezdani studenci: $failed")
+    println("Przedmioty, w których wszyscy zdali: $subjectsAllPassed")
+}
+
+Zadanie 10
+
+data class Point(var x: Int, var y: Int) {
+
+    operator fun plus(add: Point) {
+        val xp = this.x + add.x
+        val yp = this.y + add.y 
+        println("($xp, $yp)")
+    }
+    
+    operator fun plusAssign(value: Int) {
+        val xpa = this.x + value
+        val ypa = this.x + value
+        println("($xpa, $ypa)")
+    }
+    
+    operator fun minus(sub: Point) {
+        val xm = this.x - sub.x
+        val ym = this.y - sub.y 
+        println("($xm, $ym)")
+    }
+    
+    operator fun times(mult: Point) {
+        val xt = this.x * mult.x
+        val yt = this.y * mult.y 
+        println("($xt, $yt)")
+    }
+    
+    operator fun inc(): Point {
+        val xinc = this.x + 1
+        val yinc = this.x + 1
+        println("($xinc, $yinc)")
+        return this
+    }
+    
+    operator fun dec(): Point {
+        val xdec = this.x - 1
+        val ydec = this.x - 1
+        println("($xdec, $ydec)")
+        return this
+    }
+    
+    operator fun not() {
+        val xnot = -this.x
+        val ynot = -this.y
+        println("($xnot, $ynot)")
+    }
+}
+
+fun main() {
+    var p1 = Point(1, 1)
+    var p2 = Point(2, 2)
+    
+    p1 + p2
+    p1 += 1
+    p1 - p2
+    p1 * p2
+    p1++
+    p1--
+    !p1
+}
+
